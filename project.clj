@@ -1,4 +1,4 @@
-(defproject clj-djl/clj-djl.dataset "0.1.1"
+(defproject clj-djl/dataset "0.1.1"
   :description "Dataframe for clj-djl, based on tech.ml.dataset"
   :url "http://github.com/kimim/clj-djl.dataset"
   :license {:name "Apache License, Version 2.0"
