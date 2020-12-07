@@ -19,7 +19,7 @@
 
 (comment
   (def ndm (nd/new-base-manager))
-  (def DS (ds/->dataset [{:A 1 :B 2} {:A 3 :B 4}]))
+  (def DS (ds/->dataset [{:A 1 :B 2 :C 3} {:A 3 :B 4 :C 5}]))
   (ds/shape DS)
   (def array (ds/->ndarray ndm DS))
   (def expected (nd/create ndm [[1 2] [3 4]])))

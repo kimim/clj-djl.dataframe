@@ -2,7 +2,10 @@
   (:require
    [clj-djl.ndarray :as nd]
    [tech.v3.dataset :as ds]
-   [tech.v3.datatype.export-symbols :refer [export-symbols]]))
+   [tech.v3.datatype.export-symbols :refer [export-symbols]])
+  (:refer-clojure
+   :exclude
+   [filter group-by sort-by concat take-nth shuffle rand-nth update]))
 
 (export-symbols tech.v3.dataset
                 ->dataset
@@ -53,7 +56,12 @@
                 take-nth
                 ensure-array-backed
                 dataset->data
-                data->dataset)
+                data->dataset
+                brief
+                categorical->one-hot
+                replace-missing
+                head
+                tail)
 
 (defn ->ndarray
   "Convert dataset to NDArray"
@@ -66,4 +74,8 @@
 (defn shape
   "Get the shape of dataset, row count first"
   [dataset]
-  (reverse (ds/shape dataset)))
+  (vec (reverse (ds/shape dataset))))
+
+(defn select-by-index
+  [dataset row-index col-index]
+  (ds/select-by-index dataset col-index row-index))
