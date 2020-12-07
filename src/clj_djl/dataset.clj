@@ -59,3 +59,11 @@
   "Convert dataset to NDArray"
   [ndm dataset]
   (nd/t (nd/create ndm (map vec (ds/columns dataset)))))
+
+;; because ndarray shape use row index first, col index next.
+;; we'd better to map dataset shape to ndarray shape in this lib
+
+(defn shape
+  "Get the shape of dataset, row count first"
+  [dataset]
+  (reverse (ds/shape dataset)))
