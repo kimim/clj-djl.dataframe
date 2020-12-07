@@ -1,4 +1,4 @@
-(ns clj-djl.dataset.column-filters
+(ns clj-djl.dataframe.column-filters
   (:require
    [tech.v3.datatype.export-symbols :refer [export-symbols]]))
 

@@ -1,4 +1,4 @@
-(ns clj-djl.dataset
+(ns clj-djl.dataframe
   (:require
    [clj-djl.ndarray :as nd]
    [tech.v3.dataset :as ds]
@@ -63,19 +63,21 @@
                 head
                 tail)
 
+(def ->dataframe ->dataset)
+
 (defn ->ndarray
-  "Convert dataset to NDArray"
-  [ndm dataset]
-  (nd/t (nd/create ndm (map vec (ds/columns dataset)))))
+  "Convert dataframe to NDArray"
+  [ndm dataframe]
+  (nd/t (nd/create ndm (map vec (ds/columns dataframe)))))
 
 ;; because ndarray shape use row index first, col index next.
 ;; we'd better to map dataset shape to ndarray shape in this lib
 
 (defn shape
   "Get the shape of dataset, row count first"
-  [dataset]
-  (vec (reverse (ds/shape dataset))))
+  [dataframe]
+  (vec (reverse (ds/shape dataframe))))
 
 (defn select-by-index
-  [dataset row-index col-index]
-  (ds/select-by-index dataset col-index row-index))
+  [dataframe row-index col-index]
+  (ds/select-by-index dataframe col-index row-index))

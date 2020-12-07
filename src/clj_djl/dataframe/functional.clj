@@ -1,4 +1,4 @@
-(ns clj-djl.dataset.functional
+(ns clj-djl.dataframe.functional
   (:require
    [tech.v3.datatype.export-symbols :refer [export-symbols]]))
 
