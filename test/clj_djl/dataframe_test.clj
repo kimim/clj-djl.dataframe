@@ -1,4 +1,4 @@
-(ns clj-djl.dataframe.core-test
+(ns clj-djl.dataframe-test
   (:require
    [clojure.test :refer :all]
    [clj-djl.ndarray :as nd]
