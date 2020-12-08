@@ -1,0 +1,21 @@
+[[https://clojars.org/clj-djl/dataframe][https://img.shields.io/clojars/v/clj-djl/dataframe.svg]]
+
+* clj-djl.dataframe
+
+Dataframe for [[https://github.com/kimim/clj-djl][clj-djl]], based on [[https://github.com/techascent/tech.ml.dataset][tech.ml.dataset]].
+
+** Usage
+
+=clj-djl.dataframe= is available as a Maven artifact from Clojars.
+
+With Leiningen/Boot:
+
+#+begin_src clojure
+[clj-djl/dataframe "0.1.1"]
+#+end_src
+
+* License
+
+Copyright © 2020 kimim
+
+This project is licensed under the [[./LICENSE][Apache-2.0 License]].
