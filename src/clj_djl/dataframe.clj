@@ -8,9 +8,6 @@
    [filter group-by sort-by concat take-nth shuffle rand-nth update]))
 
 (export-symbols tech.v3.dataset
-                ->dataset
-                dataset-name
-                set-dataset-name
                 row-count
                 column-count
                 column
@@ -55,15 +52,17 @@
                 concat-inplace
                 take-nth
                 ensure-array-backed
-                dataset->data
-                data->dataset
                 brief
                 categorical->one-hot
                 replace-missing
                 head
                 tail)
 
-(def ->dataframe ->dataset)
+(def ->dataframe ds/->dataset)
+(def dataframe-name ds/dataset-name)
+(def set-dataframe-name ds/set-dataset-name)
+(def dataframe->data ds/dataset->data)
+(def data->dataframe ds/data->dataset)
 
 (defn ->ndarray
   "Convert dataframe to NDArray"
@@ -81,3 +80,27 @@
 (defn select-by-index
   [dataframe row-index col-index]
   (ds/select-by-index dataframe col-index row-index))
+
+(defn replace-missing
+  "Replace missing with:
+
+  - builtin strategys: `:mid` `:up` `:down` and `:lerp`
+  - value
+  - or column function with missing slot dropped
+  "
+  ([df]
+   (ds/replace-missing df))
+  ([df strategy]
+   (cond
+     ;; one of the builtin strategies
+     (contains? #{:mid :up :down :lerp} strategy)
+     (ds/replace-missing df strategy)
+     :else
+     (ds/replace-missing df :all :value strategy)))
+  ([df col-sel strategy]
+   (cond
+     ;; one of the builtin strategies
+     (contains? #{:mid :up :down :lerp} strategy)
+     (ds/replace-missing df col-sel strategy)
+     :else
+     (ds/replace-missing df col-sel :value strategy))))
