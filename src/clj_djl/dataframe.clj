@@ -86,17 +86,11 @@
 
   - builtin strategys: `:mid` `:up` `:down` and `:lerp`
   - value
-  - or column function with missing slot dropped
-  "
+  - or column function with missing slot dropped"
   ([df]
    (ds/replace-missing df))
   ([df strategy]
-   (cond
-     ;; one of the builtin strategies
-     (contains? #{:mid :up :down :lerp} strategy)
-     (ds/replace-missing df strategy)
-     :else
-     (ds/replace-missing df :all :value strategy)))
+   (replace-missing df :all strategy))
   ([df col-sel strategy]
    (cond
      ;; one of the builtin strategies
