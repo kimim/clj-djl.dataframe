@@ -5,7 +5,8 @@
    [tech.v3.datatype.export-symbols :refer [export-symbols]])
   (:refer-clojure
    :exclude
-   [filter group-by sort-by concat take-nth shuffle rand-nth update]))
+   [filter group-by sort-by concat take-nth shuffle rand-nth update])
+  (:import ai.djl.ndarray.NDArray))
 
 (export-symbols tech.v3.dataset
                 row-count
@@ -70,6 +71,22 @@
   [ndm dataframe]
   (nd/t (nd/create ndm (map vec (ds/columns dataframe)))))
 
+(defn ->dataframe
+  ([dataframe
+    {:keys [table-name dataset-name]
+     :as options}]
+   (let [dataframe
+         (if (instance? NDArray dataframe)
+           (if (= 2 (count (nd/to-vec (nd/shape dataframe))))
+             (zipmap (range ((nd/to-vec (nd/shape dataframe)) 1))
+                     (map vec
+                          (partition ((nd/to-vec (nd/shape dataframe)) 0)
+                                     (nd/to-vec (nd/t dataframe)))))
+             (throw (java.lang.IllegalArgumentException. "Can not convert ndarray (dim != 2) to dataframe!")))
+           dataframe)]
+     (ds/->dataset dataframe options)))
+  ([dataframe]
+   (->dataframe dataframe {})))
 
 (defn shape
   "Get the shape of dataframe, in row major way"

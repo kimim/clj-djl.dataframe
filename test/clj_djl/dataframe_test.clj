@@ -17,6 +17,21 @@
         expected [2 3]]
     (is (= shape- expected))))
 
+
+(deftest ndarray->dataframe-test
+  (with-open [ndm (nd/new-base-manager)]
+    (let [nd (nd/create ndm [[1 2 3] [4 5 6]])
+          df (df/->dataframe nd)]
+      (is (= [1 4] (vec (df 0))))
+      (is (= [2 5] (vec (df 1))))
+      (is (= [3 6] (vec (df 2)))))
+    (let [nd (nd/create ndm [1 2 3])]
+      (is (thrown? java.lang.IllegalArgumentException
+                   (df/->dataframe nd))))
+    (let [nd (nd/create ndm [[[1 2 3] [1 2 3]] [[1 2 3] [1 2 3]]])]
+      (is (thrown? java.lang.IllegalArgumentException
+                   (df/->dataframe nd))))))
+
 (comment
   (def ndm (nd/new-base-manager))
   (def DS (df/->dataframe [{:A 1 :B 2 :C 3} {:A 3 :B 4 :C 5}]))
