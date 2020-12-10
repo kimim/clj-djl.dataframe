@@ -64,22 +64,24 @@
 (def dataframe->data ds/dataset->data)
 (def data->dataframe ds/data->dataset)
 
+
 (defn ->ndarray
   "Convert dataframe to NDArray"
   [ndm dataframe]
   (nd/t (nd/create ndm (map vec (ds/columns dataframe)))))
 
-;; because ndarray shape use row index first, col index next.
-;; we'd better to map dataset shape to ndarray shape in this lib
 
 (defn shape
-  "Get the shape of dataset, row count first"
+  "Get the shape of dataframe, in row major way"
   [dataframe]
   (vec (reverse (ds/shape dataframe))))
 
+
 (defn select-by-index
+  "Select a sub-dataframe by seq of row index and column index"
   [dataframe row-index col-index]
   (ds/select-by-index dataframe col-index row-index))
+
 
 (defn replace-missing
   "Replace missing with:

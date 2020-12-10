@@ -2,6 +2,7 @@
   (:require
    [clojure.test :refer [deftest is]]
    [clj-djl.dataframe :as ds]
+   [clj-djl.dataframe.column-filters :as cf]
    [clj-djl.dataframe.functional :as dfn]))
 
 (deftest replace-missing-default-strategy-test
@@ -114,5 +115,38 @@
                             :d ["A" nil "B" nil "C" nil "D"]})
         ds' (-> ds
                 (ds/replace-missing [:a :b] dfn/mean))]
+    (is (= [4.0 2.0 4.0 4.0 4.0 6.0 4.0] (vec (ds' :a))))
+    (is (= [3.0 7.5 6.0 7.5 9.0 7.5 12.0] (vec (ds' :b))))))
+
+(deftest replace-missing-with-fn-as-col-selector-test
+  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+                            :b [3 nil 6 nil 9 nil 12]
+                            :c [nil "A" nil "B" nil "C" nil]
+                            :d ["A" nil "B" nil "C" nil "D"]})
+        ds' (-> ds
+                (ds/replace-missing cf/numeric 100)
+                (ds/replace-missing cf/categorical "Z"))]
+    (is (= [100 2 100 4 100 6 100] (vec (ds' :a))))
+    (is (= [3 100 6 100 9 100 12] (vec (ds' :b))))
+    (is (= ["Z" "A" "Z" "B" "Z" "C" "Z"] (vec (ds' :c))))
+    (is (= ["A" "Z" "B" "Z" "C" "Z" "D"] (vec (ds' :d)))))
+
+  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+                            :b [3 nil 6 nil 9 nil 12]
+                            :c [nil "A" nil "B" nil "C" nil]
+                            :d ["A" nil "B" nil "C" nil "D"]})
+        ds' (-> ds
+                (ds/replace-missing cf/numeric dfn/mean)
+                (ds/replace-missing cf/categorical "E"))]
+    (is (= [4 2 4 4 4 6 4] (vec (ds' :a))))
+    (is (= [3 7 6 7 9 7 12] (vec (ds' :b))))
+    (is (= ["E" "A" "E" "B" "E" "C" "E"] (vec (ds' :c))))
+    (is (= ["A" "E" "B" "E" "C" "E" "D"] (vec (ds' :d)))))
+
+  (let [ds (ds/->dataframe {:a [nil 2. nil 4. nil 6. nil]
+                            :b [3. nil 6. nil 9. nil 12.]
+                            :c [nil "A" nil "B" nil "C" nil]
+                            :d ["A" nil "B" nil "C" nil "D"]})
+        ds' (ds/replace-missing ds cf/numeric dfn/mean)]
     (is (= [4.0 2.0 4.0 4.0 4.0 6.0 4.0] (vec (ds' :a))))
     (is (= [3.0 7.5 6.0 7.5 9.0 7.5 12.0] (vec (ds' :b))))))
