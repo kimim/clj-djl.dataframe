@@ -23,7 +23,6 @@
                 drop-columns
                 update-column
                 order-column-names
-                update-columns
                 rename-columns
                 select
                 select-by-index
@@ -117,3 +116,12 @@
      (ds/replace-missing df col-sel strategy)
      :else
      (ds/replace-missing df col-sel :value strategy))))
+
+(defn update-columns
+  "Update a sequence of columns selected by column name seq or column selector function."
+  [dataframe col-name-seq-or-fn update-fn]
+  (ds/update-columns dataframe
+                     (if (fn? col-name-seq-or-fn)
+                       (ds/column-names (col-name-seq-or-fn dataframe))
+                       col-name-seq-or-fn)
+                     update-fn))
