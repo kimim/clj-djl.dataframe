@@ -1,4 +1,5 @@
 [[https://clojars.org/clj-djl/dataframe][https://img.shields.io/clojars/v/clj-djl/dataframe.svg]]
+[[https://github.com/kimim/clj-djl.dataframe/actions][https://github.com/kimim/clj-djl.dataframe/workflows/Clojure%20CI/badge.svg]]
 
 * clj-djl.dataframe
 
