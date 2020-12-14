@@ -11,7 +11,7 @@ Dataframe for [[https://github.com/kimim/clj-djl][clj-djl]], based on [[https://
 With Leiningen/Boot:
 
 #+begin_src clojure
-[clj-djl/dataframe "0.1.1"]
+[clj-djl/dataframe "0.1.2"]
 #+end_src
 
 * License
