@@ -58,7 +58,6 @@
                 head
                 tail)
 
-(def ->dataframe ds/->dataset)
 (def dataframe-name ds/dataset-name)
 (def set-dataframe-name ds/set-dataset-name)
 (def dataframe->data ds/dataset->data)
@@ -118,7 +117,37 @@
      (ds/replace-missing df col-sel :value strategy))))
 
 (defn update-columns
-  "Update a sequence of columns selected by column name seq or column selector function."
+  "Update a sequence of columns selected by:
+
+  - column name seq: `(update-columns DF [:A :B] #(dfn// % (dfn/mean %)))`
+  - column selector function.
+
+  ```clojure
+  (require '[clj-djl.dataframe :as df]
+           '[clj-djl.dataframe.functional :as dfn]
+           '[clj-djl.dataframe.column-filters :as cf])
+
+  (def DF (df/->dataframe {:A [1 2 3]
+                           :B [4 5 6]
+                           :C [\"A\" \"B\" \"C\"]}))
+
+  (df/update-columns DF [:A :B] #(dfn// % (dfn/mean %)))
+  ;; => _unnamed [3 3]:
+
+  |  :A |  :B | :C |
+  |-----|-----|----|
+  | 0.5 | 0.8 |  A |
+  | 1.0 | 1.0 |  B |
+  | 1.5 | 1.2 |  C |
+
+  (df/update-columns DF cf/numeric #(dfn// % (dfn/mean %)))
+  ;; => _unnamed [3 3]:
+
+  |  :A |  :B | :C |
+  |-----|-----|----|
+  | 0.5 | 0.8 |  A |
+  | 1.0 | 1.0 |  B |
+  | 1.5 | 1.2 |  C |"
   [dataframe col-name-seq-or-fn update-fn]
   (ds/update-columns dataframe
                      (if (fn? col-name-seq-or-fn)
