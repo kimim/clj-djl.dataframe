@@ -14,6 +14,7 @@
               :plugins [[lein-codox "0.10.7"]]
               :codox {:project {:name "clj-djl.dataframe"}
                       :themes [:rdash]
+                      :metadata {:doc/format :markdown}
                       :source-paths ["src"]
                       :source-uri "https://github.com/kimim/clj-djl.dataframe/blob/master/{filepath}#L{line}"
                       :output-path "docs"}}}
