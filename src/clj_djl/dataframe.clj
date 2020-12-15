@@ -147,7 +147,8 @@
   |-----|-----|----|
   | 0.5 | 0.8 |  A |
   | 1.0 | 1.0 |  B |
-  | 1.5 | 1.2 |  C |"
+  | 1.5 | 1.2 |  C |
+  ```"
   [dataframe col-name-seq-or-fn update-fn]
   (ds/update-columns dataframe
                      (if (fn? col-name-seq-or-fn)
