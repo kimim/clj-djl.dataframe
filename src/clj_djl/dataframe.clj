@@ -53,10 +53,15 @@
                 take-nth
                 ensure-array-backed
                 brief
+                descriptive-stats
                 categorical->one-hot
                 replace-missing
                 head
                 tail)
+
+(export-symbols tech.v3.dataset.readers
+                value-reader
+                mapseq-reader)
 
 (def dataframe-name ds/dataset-name)
 (def set-dataframe-name ds/set-dataset-name)
@@ -71,7 +76,7 @@
 
 (defn ->dataframe
   ([dataframe
-    {:keys [table-name dataset-name]
+    {:keys [dataframe-name]
      :as options}]
    (let [dataframe
          (if (instance? NDArray dataframe)
