@@ -1,0 +1,5 @@
+{:extra-paths ["test"]
+ :deps {org.clojure/clojure             {:mvn/version "1.10.2-alpha1"}
+        clj-djl                         {:mvn/version "0.1.4"}
+        techascent/tech.ml.dataset      {:mvn/version "5.00-beta-20"}
+        scicloj/notespace               {:mvn/version "3-alpha3-SNAPSHOT"}}}
