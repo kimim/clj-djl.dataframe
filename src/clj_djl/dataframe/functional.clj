@@ -10,7 +10,9 @@
                 -
                 *
                 /
+                sum
                 mean
+                equals
                 standard-deviation)
 
 (def std standard-deviation)

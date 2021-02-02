@@ -91,6 +91,13 @@
   ([dataframe]
    (->dataframe dataframe {})))
 
+(defn ->>dataframe
+  "Please see documentation of ->dataframe.  Options are the same."
+  ([options dataframe]
+   (->dataframe dataframe options))
+  ([dataframe]
+   (->dataframe dataframe)))
+
 (defn shape
   "Get the shape of dataframe, in row major way"
   [dataframe]

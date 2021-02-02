@@ -3,9 +3,9 @@
   :url "http://github.com/kimim/clj-djl.dataset"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
-  :dependencies [[org.clojure/clojure "1.10.1"]
-                 [clj-djl "0.1.4"]
-                 [techascent/tech.ml.dataset "5.00-beta-21"
+  :dependencies [[org.clojure/clojure "1.10.2"]
+                 [clj-djl "0.1.5"]
+                 [techascent/tech.ml.dataset "5.00-beta-29"
                   :exclusions [ch.qos.logback/logback-classic]]]
   :main ^:skip-aot clj-djl.dataframe.core
   :repl-options {:init-ns clj-djl.dataframe.core}
