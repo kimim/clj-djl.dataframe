@@ -74,29 +74,23 @@
   [ndm dataframe]
   (nd/t (nd/create ndm (map vec (ds/columns dataframe)))))
 
-(defn ->dataframe
-  ([dataframe
+(defn dataframe
+  ([data
     {:keys [dataframe-name]
      :as options}]
-   (let [dataframe
-         (if (instance? NDArray dataframe)
-           (if (= 2 (count (nd/to-vec (nd/shape dataframe))))
-             (zipmap (range ((nd/to-vec (nd/shape dataframe)) 1))
+   (let [data
+         (if (instance? NDArray data)
+           (if (= 2 (count (nd/to-vec (nd/shape data))))
+             (zipmap (range ((nd/to-vec (nd/shape data)) 1))
                      (map vec
-                          (partition ((nd/to-vec (nd/shape dataframe)) 0)
-                                     (nd/to-vec (nd/t dataframe)))))
+                          (partition ((nd/to-vec (nd/shape data)) 0)
+                                     (nd/to-vec (nd/t data)))))
              (throw (java.lang.IllegalArgumentException. "Can not convert ndarray (dim != 2) to dataframe!")))
-           dataframe)]
-     (ds/->dataset dataframe options)))
-  ([dataframe]
-   (->dataframe dataframe {})))
+           data)]
+     (ds/->dataset data options)))
+  ([data]
+   (dataframe data {})))
 
-(defn ->>dataframe
-  "Please see documentation of ->dataframe.  Options are the same."
-  ([options dataframe]
-   (->dataframe dataframe options))
-  ([dataframe]
-   (->dataframe dataframe)))
 
 (defn shape
   "Get the shape of dataframe, in row major way"
@@ -109,24 +103,6 @@
   [dataframe row-index col-index]
   (ds/select-by-index dataframe col-index row-index))
 
-
-(defn replace-missing
-  "Replace missing with:
-
-  - builtin strategys: `:mid` `:up` `:down` and `:lerp`
-  - value
-  - or column function with missing slot dropped"
-  ([df]
-   (ds/replace-missing df))
-  ([df strategy]
-   (replace-missing df :all strategy))
-  ([df col-sel strategy]
-   (cond
-     ;; one of the builtin strategies
-     (contains? #{:mid :up :down :lerp} strategy)
-     (ds/replace-missing df col-sel strategy)
-     :else
-     (ds/replace-missing df col-sel :value strategy))))
 
 (defn update-columns
   "Update a sequence of columns selected by:
@@ -167,3 +143,5 @@
                        (ds/column-names (col-name-seq-or-fn dataframe))
                        col-name-seq-or-fn)
                      update-fn))
+
+(def update-column add-or-update-column)
