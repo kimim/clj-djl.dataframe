@@ -55,7 +55,6 @@
                 brief
                 descriptive-stats
                 categorical->one-hot
-                replace-missing
                 head
                 tail)
 
@@ -145,3 +144,21 @@
                      update-fn))
 
 (def update-column add-or-update-column)
+
+(defn replace-missing
+  "Replace missing with:
+
+  - builtin strategys: `:mid` `:up` `:down` and `:lerp`
+  - value
+  - or column function with missing slot dropped"
+  ([df]
+   (ds/replace-missing df))
+  ([df strategy]
+   (replace-missing df :all strategy))
+  ([df col-sel strategy]
+   (cond
+     ;; one of the builtin strategies
+     (contains? #{:mid :up :down :lerp} strategy)
+     (ds/replace-missing df col-sel strategy)
+     :else
+     (ds/replace-missing df col-sel :value strategy))))

@@ -7,7 +7,7 @@
 
 (deftest replace-missing-default-strategy-test
   ;; error?
-  #_(let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  #_(let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                             :b [3 nil 6 nil 9 nil 12]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})
@@ -19,7 +19,7 @@
 
 (deftest replace-missing-builtin-strategy-test
   ;; error?
-  #_(let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  #_(let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                           :b [3 nil 6 nil 9 nil 12]
                           :c [nil "A" nil "B" nil "C" nil]
                           :d ["A" nil "B" nil "C" nil "D"]
@@ -29,7 +29,7 @@
     (is (= [3 5 6 8 9 11 12] (vec (ds' :b))))
     (is (= ["B" "B" "B" "C" "C" "C"] (vec (ds' :c))))
     ds')
-  #_(let [ds (ds/->dataframe {:a [nil 2. nil 4. nil 6. nil]
+  #_(let [ds (ds/dataframe {:a [nil 2. nil 4. nil 6. nil]
                           :b [3. nil 6. nil 9. nil 12.]
                           :c [nil "A" nil "B" nil "C" nil]
                           :d ["A" nil "B" nil "C" nil "D"]
@@ -39,7 +39,7 @@
     (is (= [3 4.5 6 7.5 9 10.5 12] (vec (ds' :b))))
     (is (= ["B" "B" "B" "C" "C" "C"] (vec (ds' :c))))
     ds')
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                           :b [3 nil 6 nil 9 nil 12]
                           :c [nil "A" nil "B" nil "C" nil]
                           :d ["A" nil "B" nil "C" nil "D"]
@@ -50,7 +50,7 @@
     (is (= ["A" "A" "B" "B" "C" "C" "C"] (vec (ds' :c))))
     (is (= ["A" "B" "B" "C" "C" "D" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                           :b [3 nil 6 nil 9 nil 12]
                           :c [nil "A" nil "B" nil "C" nil]
                           :d ["A" nil "B" nil "C" nil "D"]
@@ -61,7 +61,7 @@
     (is (= ["A" "A" "A" "B" "B" "C" "C"] (vec (ds' :c))))
     (is (= ["A" "A" "B" "B" "C" "C" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                             :b [3 nil 6 nil 9 nil 12]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]
@@ -75,7 +75,7 @@
     (is (= ["A" "A" "A" "B" "B" "C" "C"] (vec (ds' :c))))
     (is (= ["A" "A" "B" "B" "C" "C" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2. nil 4. nil 6. nil]
+  (let [ds (ds/dataframe {:a [nil 2. nil 4. nil 6. nil]
                           :b [3. nil 6. nil 9. nil 12.]
                           :c [nil "A" nil "B" nil "C" nil]
                           :d ["A" nil "B" nil "C" nil "D"]
@@ -89,7 +89,7 @@
 
 
 (deftest replace-missing-with-value-test
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                             :b [3 nil 6 nil 9 nil 12]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})
@@ -99,7 +99,7 @@
     (is (= ["100" "A" "100" "B" "100" "C" "100"] (vec (ds' :c))))
     (is (= ["A" "100" "B" "100" "C" "100" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                             :b [3 nil 6 nil 9 nil 12]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})
@@ -111,7 +111,7 @@
     (is (= ["E" "A" "E" "B" "E" "C" "E"] (vec (ds' :c))))
     (is (= ["A" "E" "B" "E" "C" "E" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2. nil 4. nil 6. nil]
+  (let [ds (ds/dataframe {:a [nil 2. nil 4. nil 6. nil]
                             :b [3. nil 6. nil 9. nil 12.]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})
@@ -121,7 +121,7 @@
     (is (= [3.0 7.5 6.0 7.5 9.0 7.5 12.0] (vec (ds' :b))))))
 
 (deftest replace-missing-with-fn-as-col-selector-test
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                             :b [3 nil 6 nil 9 nil 12]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})
@@ -133,7 +133,7 @@
     (is (= ["Z" "A" "Z" "B" "Z" "C" "Z"] (vec (ds' :c))))
     (is (= ["A" "Z" "B" "Z" "C" "Z" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2 nil 4 nil 6 nil]
+  (let [ds (ds/dataframe {:a [nil 2 nil 4 nil 6 nil]
                             :b [3 nil 6 nil 9 nil 12]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})
@@ -145,7 +145,7 @@
     (is (= ["E" "A" "E" "B" "E" "C" "E"] (vec (ds' :c))))
     (is (= ["A" "E" "B" "E" "C" "E" "D"] (vec (ds' :d)))))
 
-  (let [ds (ds/->dataframe {:a [nil 2. nil 4. nil 6. nil]
+  (let [ds (ds/dataframe {:a [nil 2. nil 4. nil 6. nil]
                             :b [3. nil 6. nil 9. nil 12.]
                             :c [nil "A" nil "B" nil "C" nil]
                             :d ["A" nil "B" nil "C" nil "D"]})

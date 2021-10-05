@@ -6,7 +6,7 @@
    [clj-djl.dataframe.functional :as dfn]))
 
 (deftest aggregate-columns-test
-  (let [DF (df/->dataframe
+  (let [DF (df/dataframe
             {:department ["finance" "research" "research" "finance" "manufacture" "manufacture"]
              :date ["2020-01-01" "2020-01-01" "2020-01-02" "2020-01-02" "2020-01-01" "2020-01-02"]
              :cost [10 20 30 40 50 60]
@@ -29,7 +29,7 @@
                             :n-dates (df/row-count df)
                             :cost-sum (dfn/sum (df :cost))
                             :revenue-avg (dfn/mean (df :revenue))})))
-                   (df/->dataframe)
+                   (df/dataframe)
                    (df/sort-by-column :department))]
     (is (= 3 (df/row-count DF-agg)))
     (is (dfn/equals (DF-agg :n-dates)
