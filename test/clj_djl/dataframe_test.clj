@@ -7,7 +7,7 @@
 (deftest dataframe->ndarray-test
   (with-open [ndm (nd/new-base-manager)]
     (let [DS (df/dataframe [{:A 1 :B 2} {:A 3 :B 4}])
-          array (df/->ndarray ndm DS)
+          array (df/->ndarray ndm DS [:A :B])
           expected (nd/create ndm [[1 2] [3 4]])]
       (is (= array expected)))))
 
@@ -36,5 +36,5 @@
   (def ndm (nd/base-manager))
   (def DS (df/dataframe [{:A 1 :B 2 :C 3} {:A 3 :B 4 :C 5}]))
   (df/shape DS)
-  (def array (df/->ndarray ndm DS))
+  (def array (df/->ndarray ndm DS [:A :B :C]))
   (def expected (nd/create ndm [[1 2] [3 4]])))

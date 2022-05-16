@@ -70,8 +70,11 @@
 
 (defn ->ndarray
   "Convert dataframe to NDArray"
-  [ndm dataframe]
-  (nd/t (nd/create ndm (map vec (ds/columns dataframe)))))
+  [ndm dataframe & [cols]]
+  (let [columns (if cols
+                  (ds/columns (ds/select-columns dataframe cols))
+                  (ds/columns dataframe))]
+    (nd/t (nd/create ndm (map vec columns)))))
 
 (defn dataframe
   ([data
